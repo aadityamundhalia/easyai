@@ -1,0 +1,16 @@
+streamlit
+numpy
+langchain
+litellm
+python-multipart
+pypdf
+python-dotenv
+docx2txt
+pdfminer
+unstructured
+pdf2image
+marqo
+pandas
+openpyxl
+duckduckgo-search
+wikipedia

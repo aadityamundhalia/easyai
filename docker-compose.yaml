@@ -1,0 +1,54 @@
+version: '3'
+services:
+  streamlit:
+    container_name: streamlit
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8501:8501
+    networks:
+      - backend
+
+  marqo:
+    container_name: marqo
+    privileged: true
+    ports:
+        - '8882:8882'
+    extra_hosts:
+        - 'host.docker.internal:host-gateway'
+    image: 'marqoai/marqo:latest'
+    volumes:
+      - ./easyai/:/marqo/
+    networks:
+      - backend
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+  ollama:
+    volumes:
+        - './easyai/:/root/.ollama'
+    ports:
+        - '11434:11434'
+    container_name: ollama
+    image: ollama/ollama
+    networks:
+        - backend
+    extra_hosts:
+        - 'host.docker.internal:host-gateway'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+networks:
+  backend:
+    driver: bridge
