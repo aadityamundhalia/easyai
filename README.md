@@ -2,7 +2,7 @@
 It is personal project that I will add things as I go.
 
 # Installation
-- `git clone`
+- `git clone https://github.com/aadityamundhalia/easyai.git`
 - `cd easyai`
 - `docker-compose up -d`
 
