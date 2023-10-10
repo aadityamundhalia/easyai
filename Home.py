@@ -27,11 +27,11 @@ st.set_page_config(
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    response = ""
-    results = llm([{"role": "user", "content": ""}])
-    for result in results:
-        response += result['choices'][0]['delta'].get("content", "")
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    # response = ""
+    # results = llm([{"role": "user", "content": ""}])
+    # for result in results:
+    #     response += result['choices'][0]['delta'].get("content", "")
+    # st.session_state.messages.append({"role": "assistant", "content": response})
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
