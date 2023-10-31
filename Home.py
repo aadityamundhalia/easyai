@@ -4,7 +4,8 @@ from litellm import completion
 
 def llm(messages):
     return completion(
-            model="ollama/mistral",
+            # model="ollama/mistral",
+            model="ollama/dolphin:latest",
             messages=[
                 {
                     "content": m["content"],
@@ -12,9 +13,10 @@ def llm(messages):
                 }
                 for m in messages
             ],
-            api_base="http://ollama:11434",
+            # api_base="http://ollama:11434",
+            api_base="http://host.docker.internal:11434",
             stream=True,
-            temperature=0.8,
+            temperature=1,
         )
 
 
@@ -24,14 +26,10 @@ st.set_page_config(
         layout="wide",
     )
 
+chat = []
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    # response = ""
-    # results = llm([{"role": "user", "content": ""}])
-    # for result in results:
-    #     response += result['choices'][0]['delta'].get("content", "")
-    # st.session_state.messages.append({"role": "assistant", "content": response})
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -42,7 +40,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="👧"):
         message_placeholder = st.empty()
         full_response = ""
         for response in llm(st.session_state.messages):
@@ -50,5 +48,3 @@ if prompt := st.chat_input("What is up?"):
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-
-
