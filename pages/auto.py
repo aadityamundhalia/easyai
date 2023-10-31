@@ -4,7 +4,7 @@
 #     {
 #         'model': 'gpt-3.5-turbo-16k',
 #         # 'model': 'gpt-4',
-#         'api_key': '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'
+#         'api_key': ''
 #     }
 # ]
 
